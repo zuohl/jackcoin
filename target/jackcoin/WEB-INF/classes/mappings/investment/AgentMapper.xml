@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cunhou.service.web.investment.mapper.AgentMapper">
+  <resultMap id="BaseResultMap" type="com.cunhou.service.web.investment.entry.Agent">
+    <constructor>
+      <idArg column="agent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="operate_id" javaType="com.cunhou.service.web.investment.entry.OperateInfo" jdbcType="INTEGER" typeHandler="com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="intention_money" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Criteria_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.operateInfoCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler} and #{criterion.secondValue,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Criteria_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.operateInfoCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler} and #{criterion.secondValue,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    agent_id, operate_id, name, phone, intention_money, create_time
+  </sql>
+  <select id="selectByCriteria" parameterType="com.cunhou.service.web.investment.entry.criteria.AgentCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from agent
+    <if test="_parameter != null">
+      <include refid="Criteria_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="offset &gt;= 0">
+      limit #{offset} , #{limitCount}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from agent
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from agent
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCriteria" parameterType="com.cunhou.service.web.investment.entry.criteria.AgentCriteria">
+    delete from agent
+    <if test="_parameter != null">
+      <include refid="Criteria_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cunhou.service.web.investment.entry.Agent">
+    insert into agent (agent_id, operate_id, 
+      name, phone, intention_money, 
+      create_time)
+    values (#{agentId,jdbcType=INTEGER}, #{operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{intentionMoney,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cunhou.service.web.investment.entry.Agent">
+    insert into agent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="operateInfo != null">
+        operate_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="intentionMoney != null">
+        intention_money,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="operateInfo != null">
+        #{operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionMoney != null">
+        #{intentionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCriteria" parameterType="com.cunhou.service.web.investment.entry.criteria.AgentCriteria" resultType="java.lang.Integer">
+    select count(*) from agent
+    <if test="_parameter != null">
+      <include refid="Criteria_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByCriteriaSelective" parameterType="map">
+    update agent
+    <set>
+      <if test="record.agentId != null">
+        agent_id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateInfo != null">
+        operate_id = #{record.operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intentionMoney != null">
+        intention_money = #{record.intentionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Criteria_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCriteria" parameterType="map">
+    update agent
+    set agent_id = #{record.agentId,jdbcType=INTEGER},
+      operate_id = #{record.operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      intention_money = #{record.intentionMoney,jdbcType=DOUBLE},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Criteria_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cunhou.service.web.investment.entry.Agent">
+    update agent
+    <set>
+      <if test="operateInfo != null">
+        operate_id = #{operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="intentionMoney != null">
+        intention_money = #{intentionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cunhou.service.web.investment.entry.Agent">
+    update agent
+    set operate_id = #{operateInfo,jdbcType=INTEGER,typeHandler=com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      intention_money = #{intentionMoney,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where agent_id = #{agentId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- customer -->
+  <select id="getAgentInfoByCondition" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from agent t where 1=1
+        <if test="operateId != null and operateId != ''">
+            and t.operate_id = #{operateId}
+        </if>
+        <if test="nameOrPhone != null and nameOrPhone != ''">
+            and (t.name = '#{nameOrPhone}' or t.phone = '#{nameOrPhone}')
+        </if>
+    </select>
+    
+</mapper>
