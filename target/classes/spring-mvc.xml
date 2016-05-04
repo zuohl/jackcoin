@@ -12,7 +12,7 @@
 
     <mvc:default-servlet-handler />
 
-    <mvc:view-controller path="/" view-name="list.jsp" />
+    <mvc:view-controller path="/" view-name="main.html" />
 
     <!-- 上传文件配置 -->
     <bean id="multipartResolver"
