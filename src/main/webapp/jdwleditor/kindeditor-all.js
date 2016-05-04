@@ -6354,7 +6354,7 @@ KindEditor.plugin('code', function(K) {
 
 KindEditor.plugin('emoticons', function(K) {
 	var self = this, name = 'emoticons',
-		path = (self.emoticonsPath || self.pluginsPath + 'emoticons/images/'),
+		path = (self.emoticonsPath || self.pluginsPath + 'emoticons/img/'),
 		allowPreview = self.allowPreviewEmoticons === undefined ? true : self.allowPreviewEmoticons,
 		currentPageNum = 1;
 	self.clickToolbar(name, function() {
@@ -6484,7 +6484,7 @@ KindEditor.plugin('emoticons', function(K) {
 KindEditor.plugin('filemanager', function(K) {
 	var self = this, name = 'filemanager',
 		fileManagerJson = K.undef(self.fileManagerJson, self.basePath + 'php/file_manager_json.php'),
-		imgPath = self.pluginsPath + name + '/images/',
+		imgPath = self.pluginsPath + name + '/img/',
 		lang = self.lang(name + '.');
 	function makeFileTitle(filename, filesize, datetime) {
 		return filename + ' (' + Math.ceil(filesize / 1024) + 'KB, ' + datetime + ')';
@@ -6837,7 +6837,7 @@ KindEditor.plugin('image', function(K) {
 		allowFileManager = K.undef(self.allowFileManager, false),
 		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
 		imageTabIndex = K.undef(self.imageTabIndex, 0),
-		imgPath = self.pluginsPath + 'image/images/',
+		imgPath = self.pluginsPath + 'image/img/',
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
@@ -7900,7 +7900,7 @@ KindEditor.plugin('multiimage', function(K) {
 	var self = this, name = 'multiimage',
 		formatUploadUrl = K.undef(self.formatUploadUrl, true),
 		uploadJson = K.undef(self.uploadJson, self.basePath + 'php/upload_json.php'),
-		imgPath = self.pluginsPath + 'multiimage/images/',
+		imgPath = self.pluginsPath + 'multiimage/img/',
 		imageSizeLimit = K.undef(self.imageSizeLimit, '1MB'),
 		imageFileTypes = K.undef(self.imageFileTypes, '*.jpg;*.gif;*.png'),
 		imageUploadLimit = K.undef(self.imageUploadLimit, 20),

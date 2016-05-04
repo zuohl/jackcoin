@@ -1,30 +1,30 @@
 *{ margin:0 auto; padding: 0; }
 
 .onShow{
-	background:url(images/onShow.gif) no-repeat;
+	background:url(img/onShow.gif) no-repeat;
 	padding-left:25px;
 	font-size: 12px;
 
 }
 .onFocus{
-	background:#E9F0FF url(images/onFocus.gif) no-repeat;
+	background:#E9F0FF url(img/onFocus.gif) no-repeat;
 	padding-left:25px;
 	font-size: 12px;
 
 }
 .onError{
-	background:#FFF2E9 url(images/onError.gif) no-repeat;
+	background:#FFF2E9 url(img/onError.gif) no-repeat;
 	padding-left:25px;
 	font-size: 12px;
 
 }
 .onCorrect{
-	background:#E9FFEB url(images/onCorrect.gif) no-repeat;
+	background:#E9FFEB url(img/onCorrect.gif) no-repeat;
 	padding-left:25px;
 	font-size: 12px;
 }
 .onLoad{
-    background:#E9FFEB url(images/onLoad.gif) no-repeat;
+    background:#E9FFEB url(img/onLoad.gif) no-repeat;
 	padding-left:25px;
 	font-size: 12px;
 	vertical-align:middle;
