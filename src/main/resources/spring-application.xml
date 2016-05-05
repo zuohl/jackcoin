@@ -85,7 +85,8 @@
 	<bean id="pagePlugin" class="com.cunhou.service.web.common.plugins.PagePlugin">
 		<property name="properties">
 			<props>
-				<prop key="dialect">mysql</prop>
+				<!-- <prop key="dialect">mysql</prop> -->
+				<prop key="dialect">sqljdbc</prop>
 				<prop key="pageSqlId">.*query.*</prop>
 			</props>
 		</property>

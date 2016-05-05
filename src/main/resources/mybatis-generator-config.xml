@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
+    <classPathEntry location="D://sqljdbc4.jar" />
     <context id="contextTest" targetRuntime="MyBatis3">
         <plugin type="org.patrick.plugins.mybatis.MysqlPaginationPlugin" />
         <plugin type="org.patrick.plugins.mybatis.CustomStylePlugin" />
@@ -9,9 +10,13 @@
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            connectionURL="jdbc:sqlserver://123.56.185.24:1433;DatabaseName=updisjieke" userId="jieke"
+            password="jieke678%%%ok" />
+            
+<!--         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
             connectionURL="jdbc:mysql://120.24.55.153:3769/investment" userId="yuehou"
-            password="2CewS3rf34R54h5g34G423tr" />
+            password="2CewS3rf34R54h5g34G423tr" /> -->
 
         <!-- infrastructure begin --> 
         <javaModelGenerator targetPackage="com.cunhou.service.web.investment.entry"
@@ -34,8 +39,8 @@
         <!-- <table tableName="operate_info" domainObjectName="OperateInfo">
         </table> -->
         
-        <table tableName="agent" domainObjectName="Agent">
-            <columnOverride column="operate_id" property="operateInfo" javaType="com.cunhou.service.web.investment.entry.OperateInfo" typeHandler="com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler" />
+        <table tableName="match_user" domainObjectName="MatchUser">
+            <!-- <columnOverride column="operate_id" property="operateInfo" javaType="com.cunhou.service.web.investment.entry.OperateInfo" typeHandler="com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler" /> -->
         </table>
 
     </context>
