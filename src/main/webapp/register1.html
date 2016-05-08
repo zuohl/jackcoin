@@ -24,17 +24,17 @@ function Subm() {
     var sum = document.getElementById("sub");
     if (ckall()) {
         fm.submit();
-    }
+   }
 }
 
 function checkAccountNum(){
-    if (fm.bankAccount.value=="" ) {
+    if (fm.bankname.value=="" ) {
         document.getElementById("bankMessage").innerHTML="<font color='red' size='-1'>银行卡号码不能为空</font>";
         return false;
     } else {
         document.getElementById("bankMessage").innerHTML="<font size='-1'>请输入您本人名下的银行账号信息，不得使用信用卡。</font>";
     }
-    FirmManager.checkAccountNum(fm.bankAccount.value,function(data) {
+    FirmManager.checkAccountNum(fm.bankname.value,function(data) {
         if (!data) {
             document.getElementById("bankMessage").innerHTML="<font color='red' size='-1'>银行卡号已被使用</font>";
         }else{
@@ -44,13 +44,13 @@ function checkAccountNum(){
 }
 
 function checkCardNum(){
-    if (fm.cardNumber.value == "") {
+    if (fm.certnum.value == "") {
         document.getElementById("cardMessage").innerHTML="<font color='red' size='-1'>证件号码不能为空</font>";
         return false;
     }
     // 证件类型为身份证
-    if (fm.cardType.value=="1") {
-        var cardMsg = yanzheng(fm.cardNumber.value);
+    if (fm.certtype.value=="1") {
+        var cardMsg = yanzheng(fm.certnum.value);
         if (cardMsg != "验证通过!") {
             document.getElementById("cardMessage").innerHTML="<font color='red' size='-1'>身份证号不正确</font>";
             return false;
@@ -58,23 +58,26 @@ function checkCardNum(){
             document.getElementById("cardMessage").innerHTML="<em>*</em>";
         }
 
-        FirmManager.checkedCardNumberBycardType(fm.cardNumber.value,fm.cardType.value,function(data) {
+        /*
+        FirmManager.checkedcertnumBycerttype(fm.certnum.value,fm.certtype.value,function(data) {
             if (!data) {
-                fm.cardNumber.value="";
+                fm.certnum.value="";
                 document.getElementById("cardMessage").innerHTML="<font color='red' size='-1'>身份证号已被使用</font>";
             } else {
                 document.getElementById("cardMessage").innerHTML="<em>*</em>";
             }
-        })
+        })*/
     } else {
-        FirmManager.checkedCardNumberBycardType(fm.cardNumber.value,fm.cardType.value,function(data) {
+    	/*
+        FirmManager.checkedcertnumBycerttype(fm.certnum.value,fm.certtype.value,function(data) {
             if (!data) {
-                fm.cardNumber.value="";
+                fm.certnum.value="";
                 document.getElementById("cardMessage").innerHTML="<font color='red' size='-1'>证件号已被使用</font>";
             } else {
                 document.getElementById("cardMessage").innerHTML="<span>*</span>";
             }
         })
+        */
     }
 }
 
@@ -101,59 +104,59 @@ function suffixNamePress(){
 
 //验证
 function ckall(){
-    if (fm.name.value=="" ) {
+    if (fm.username.value=="" ) {
         alert("姓名不能为空");
-        fm.name.focus();
+        fm.username.focus();
         return false;
     }
-    if (fm.registeredPhoneNo.value=="") {
-        fm.registeredPhoneNo.focus();
+    if (fm.phone.value=="") {
+        fm.phone.focus();
         alert("手机号码不能为空！");
         return false;
     }
-    if (fm.registeredPhoneNo.value.length!=11) {
-        fm.registeredPhoneNo.focus();
+    if (fm.phone.value.length!=11) {
+        fm.phone.focus();
         alert("手机号码长度只能为11位！");
         return false;
     }
-    if (fm.cardType.value=="-1" ) {
+    if (fm.certtype.value=="-1" ) {
         alert("请选择证件类型");
-        fm.cardType.focus();
+        fm.certtype.focus();
         return false;
     }
     
-    if (fm.cardNumber.value=="" ) {
+    if (fm.certnum.value=="" ) {
         alert("证件号码不能为空");
-        fm.cardNumber.focus();
+        fm.certnum.focus();
         return false;
     } else {
-        if (fm.cardType.value=="1") {
+        if (fm.certtype.value=="身份证") {
             var d = new Date();
             nowyear = d.getFullYear();
-            var birthyear = fm.cardNumber.value.substr(6,4);
+            var birthyear = fm.certnum.value.substr(6,4);
             var age = nowyear-birthyear;
             if (age<18) {
                 alert("开户交易商年龄应大于18周岁");
-                fm.cardNumber.focus();
+                fm.certnum.focus();
                 return false;
             }
         }
-        if (fm.cardType.value=="3" && checkhuzhao(fm.cardNumber.value)==false) {
+        if (fm.certtype.value=="护照" && checkhuzhao(fm.certnum.value)==false) {
             alert("护照格式填写错误");
             return
         }
     }
      
-    if (fm.selectp.value == "0" ) {
+    if (fm.address.value == "0" ) {
         alert("请选择所在省市");
-        fm.address1.focus();
+        fm.address.focus();
         return false;
     }
 
-    if (fm.cardType.value == "1") {
-        if (yanzheng(fm.cardNumber.value) != "验证通过!") {
-            alert(yanzheng(fm.cardNumber.value));
-            fm.cardNumber.focus();
+    if (fm.certtype.value == "身份证") {
+        if (yanzheng(fm.certnum.value) != "验证通过!") {
+            alert(yanzheng(fm.certnum.value));
+            fm.certnum.focus();
             return false;
         }
     }
@@ -171,24 +174,24 @@ function ckall(){
         fm.email.focus();
         return false;
     }
-    if (fm.recommendBankCode.value == "") {
+    if (fm.bankname.value == "") {
         alert("银行不能为空");
-        fm.bank.focus();
+        fm.bankname.focus();
         return false;
     }
-    if (fm.bankAccount.value == "") {
+    if (fm.banknumber.value == "") {
         alert("银行账号不能为空");
-        fm.bankAccount.focus();
+        fm.banknumber.focus();
         return false;
     }
-    if (fm.address.value == "") {
+    if (fm.province.value == "") {
         alert("地址不能为空");
-        fm.address.focus();
+        fm.province.focus();
         return false;
     }
-    if (fm.address1.value == ""){
+    if (fm.city.value == ""){
         alert("地址不能为空");
-        fm.address1.focus();
+        fm.city.focus();
         return false;
     }
     var type='';
@@ -206,27 +209,28 @@ function ckall(){
         alert("组织机构代码不能为空！");
         return;
     }
-    
+    /*
     if (fm.brokerId.value == "-1") {
         alert("请选择经纪会员");
         fm.brokerId.focus();
         return false;
     } 
-    
-    
-    if (type == "3") {
-        if (fm.contactMan.value == "") {
+    */
+    var investortype = document.getElementById("investortype").value;
+    if (investortype == "自然人投资者") {
+        if (fm.emercontact.value == "") {
             alert("联系人不能为空");
-            fm.contactMan.focus();
+            fm.emercontact.focus();
             return false;
         }
-        if (fm.ContacterPhoneNo.value == "") {
+        if (fm.emercontactphone.value == "") {
             alert("手机号码不能为空");
-            fm.ContacterPhoneNo.focus();
+            fm.emercontactphone.focus();
             return false;
         }
         
-        var attach = document.getElementById("attach").value;
+        /*
+        var attach = document.getElementById("photo").value;
         var imgSize = 1024 * 100; //最大100K
         
        // if(img.fileSize <=0 || img.fileSize > imgSize){
@@ -247,13 +251,14 @@ function ckall(){
         } else {
             alert("身份证正面照不能为空!");
             return false;
-        }
+        }*/
     }
+    /*
     if (fm.yanzhengma.value == "") {
         alert("验证码不能为空");
         fm.yanzhengma.focus();
         return false;
-    }
+    }*/
     return true;  
 }
 
@@ -284,7 +289,7 @@ function onlyNumberInput1() {
 
 //银行卡输入4位加一空格
 function divideAccount() {
-    var tt = document.getElementById("bankAccount");
+    var tt = document.getElementById("bankname");
     tt.value =tt.value.replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,"$1 ");
 }
 
@@ -619,6 +624,7 @@ function submitNext(area) {
         oOption.setAttribute("value", "-1");
         oOption.appendChild(t);
         oSelect.appendChild(oOption);
+        /*
         FirmManager.getBrokerListByIdAndNameAndmem(area,function(data) {
             if (data.length > 0) {
                 var arr=data.split(";");
@@ -632,6 +638,7 @@ function submitNext(area) {
                 }
             }
         })
+        */
     }
 }
 
@@ -643,6 +650,7 @@ function checkFirm() {
         document.getElementById("firmMessage").innerHTML="<font color='red' size='-1'>请输入6位交易商ID</font>";
         fm.firmId.focus();
     } else {
+    	/*
         FirmManager.checkedFirmById(id,function(data) {
             if (data == "true") {
                 document.getElementById("firmMessage").innerHTML="<font color='red' size='-1'>该交易商ID已存在</font>";
@@ -650,7 +658,7 @@ function checkFirm() {
             } else {
                 document.getElementById("firmMessage").innerHTML="<font color='red' size='-1'>*</font>";
             }
-        })
+        })*/
     }
 }
 
@@ -725,8 +733,8 @@ function sleep(n) {
     
     //当交易商类型为'个人的时候',隐藏地域编号、行业编号、组织结构代码和法人代表
     function checkRepeat() {
-        var type=document.getElementById("type").value;
-        if (type != 3) {
+        var type=document.getElementById("investortype").value;
+        if (type != "自然人投资者") {
             $("tr[name='content1']").css("display", "");
             $("tr[name='content']").css("display", "none");
         } else {
@@ -737,7 +745,7 @@ function sleep(n) {
     
     //当交易商类型为'个人的时候',隐藏地域编号、行业编号、组织结构代码和法人代表
     function getHidden(type) {
-        if (type != 3) {
+        if (type != "自然人投资者") {
             $("tr[name='content1']").css("display", "");
             $("tr[name='content']").css("display", "none");
         } else {
@@ -941,7 +949,7 @@ function sleep(n) {
         
         <div class="biaoge">
             <iframe name="hiddenframe" width=0 height=0 application='yes'></iframe>
-            <form action="./firmController.fir?funcflg=addFirm" method="post" name="fm" id="fm"  enctype="multipart/form-data">
+            <form action="addMatchUser" method="post" name="fm" id="fm"  enctype="multipart/form-data">
                 <table>
                     <tr class="bt">
                         <td colspan="3">填写注册信息↓&nbsp;&nbsp;&nbsp;&nbsp;<span>*为必填项</span></td>
@@ -951,25 +959,28 @@ function sleep(n) {
                         <td class="td2">
                         <input name="sine" id="sine" type="hidden" value="mobile" />
                         <input name="broker" id="broker" type="hidden" value="" />
-                        <input name="name" id="name" value="" maxlength="16"/></td>
+                        <input name="username" id="username" value="" maxlength="16"/>
+                        <!-- <input name="userid" id="userid" type="hidden" value="" /> -->
+                        </td>
+                        
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr>
                         <td class="td1">证件类型：</td>
                         <td style="padding-right:0px;" class="td2">
-                        <select id="cardType" name="cardType" class="select1">
+                        <select id="certtype" name="certtype" class="select1">
                             <option value="-1">---请选择证件类型--</option>
-                            <option value="1">身份证</option>
-                            <option value="2">军官证</option>
-                            <option value="3">护照</option>
-                            <option value="4">台胞证</option>
+                            <option value="身份证">身份证</option>
+                            <option value="军官证">军官证</option>
+                            <option value="护照">护照</option>
+                            <option value="台胞证">台胞证</option>
                         </select></td>
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr>
                         <td class="td1">证件编号：</td>
                         <td class="td2">
-                            <input name="cardNumber" id="cardNumber" value="" maxlength="18" 
+                            <input name="certnum" id="certnum" value="" maxlength="18" 
                             onKeyPress="onlyNumberAndCharInput();" onblur="checkCardNum();"/>
                         </td>
                         <td class="td3"><font id="cardMessage"><em>*</em></font></td>
@@ -981,12 +992,12 @@ function sleep(n) {
                     <tr>
                         <td class="td1">开户银行：</td>
                         <td style="padding-right:0px;" class="td2">
-	                        <select name="recommendBankCode" id="recommendBankCode" class="select1" >
+	                        <select name="bankname" id="bankname" class="select1" >
 	                            <option value="">---请选择银行--</option>
-	                            <option value='10'>工行</option>
-	                            <option value='18'>平安银行</option>
-	                            <option value='005'>农行</option>
-	                            <option value='25'>民生</option>
+	                            <option value='工行'>工行</option>
+	                            <option value='平安银行'>平安银行</option>
+	                            <option value='农行'>农行</option>
+	                            <option value='民生'>民生</option>
 	                        </select>
                         </td>
                         <td class="td3"><em>*</em></td>
@@ -994,7 +1005,7 @@ function sleep(n) {
                     <tr>
                         <td class="td1">银行账号：</td>
                         <td class="td2">
-                            <input name="bankAccount" id="bankAccount" value="" onKeyPress="onlyNumberInput();" onkeyup="divideAccount();" onblur="checkAccountNum();" />
+                            <input name="banknumber" id="banknumber" value="" onKeyPress="onlyNumberInput();" onkeyup="divideAccount();" onblur="checkAccountNum();" />
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
@@ -1007,7 +1018,7 @@ function sleep(n) {
                     <tr>
                         <td class="td1">开户机构：</td>
                         <td class="td2">
-                            <input name="brokerId" id="brokerId" value="1011998" maxlength="18" readonly="readonly" >
+                            <input name="accountorg" id="accountorg" value="1011998" maxlength="18" readonly="readonly" >
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
@@ -1015,10 +1026,9 @@ function sleep(n) {
                     <tr>
                         <td class="td1">投资者类型：</td>
                         <td style="padding-right:0px;" class="td2">
-                        <select class="select1" id="type"
-                            name="type" onchange="getHidden(this.value)">
-                        <option value="3" selected="selected">自然人投资者</option>
-                        <option value="1">机构投资者</option>
+                        <select class="select1" id="investortype" name="investortype" onchange="getHidden(this.value)">
+                        <option value="自然人投资者" selected="selected">自然人投资者</option>
+                        <option value="机构投资者">机构投资者</option>
                         </select></td>
                         <td class="td3"><em>*</em></td>
                     </tr>
@@ -1026,8 +1036,8 @@ function sleep(n) {
                         <td class="td1">性别：</td>
                         <td class="td2">
                             <select id="sex" name="sex" class="select1">
-                                <option value="1">男</option>
-                                <option value="0">女</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
                             </select>
                         </td>
                         <td class="td3"><em>*</em></td>
@@ -1036,23 +1046,25 @@ function sleep(n) {
                     <tr name="content">
                         <td class="td1">紧急联系人：</td>
                         <td class="td2">
-                            <input name="contactMan" value="" type="text"/>
+                            <input name="emercontact" id="emercontact" value="" type="text"/>
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr name="content">
                         <td class="td1">紧急联系人电话：</td>
                         <td class="td2">
-                            <input name="ContacterPhoneNo" value="" type="text" onkeypress="return suffixNamePress();"/>
+                            <input name="emercontactphone" id="emercontactphone" value="" type="text" onkeypress="return suffixNamePress();"/>
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
+                    
+                    <!-- 
                     <tr name="content">
                         <td class="td1">证件照片：</td>
-                        <td class="td2"><input type="file" accept="image/*"
-                            capture="camera" name="attach" id="attach"
-                            data-prompt-position="centerLeft:175,-6"
-                            onchange="loadImage(this);"></td>
+                        <td class="td2">
+                         <input type="file" accept="image/*"  name="photo" id="photo" data-prompt-position="centerLeft:175,-6"
+                            onchange="loadImage(this);"> 
+                            </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr name="content">
@@ -1069,7 +1081,7 @@ function sleep(n) {
                                 <canvas id="myCanvas"></canvas>
                             </div></td>
                     </tr>
-                    
+                      -->
                     <tr name="content1">
                         <td class="td1">营业执照号：</td>
                         <td class="td2">
@@ -1133,7 +1145,7 @@ function sleep(n) {
                     <tr>
                         <td class="td1">联系地址：</td>
                         <td style="padding-right:0px;" class="td2">
-                        <select name="selectp" id="selectp" class="select1">
+                        <select name="address" id="address" class="select1">
                          <option selected value="0">--请选择--</option>
                          <option  value="北京市">北京</option>
                          <option  value="上海市">上海</option>
@@ -1175,19 +1187,19 @@ function sleep(n) {
                     </tr>
                     <tr>
                         <td class="td1">省/直辖市：</td>
-                        <td class="td2"> <input name="address1" id="address1" value=""/>
+                        <td class="td2"> <input name="city" id="city" value=""/>
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr>
                         <td class="td1">市/区/县：</td>
-                        <td class="td2"><input name="address" id="address" value=""/>街/小区/楼/门/室等
+                        <td class="td2"><input name="province" id="province" value=""/>街/小区/楼/门/室等
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
                     <tr>
                         <td class="td1">手机号：</td>
-                        <td class="td2"><input name="registeredPhoneNo" id="registeredPhoneNo" value="" maxlength="16" />
+                        <td class="td2"><input name="phone" id="phone" value="" maxlength="16" />
                         </td>
                         <td class="td3"><em>*</em></td>
                     </tr>
@@ -1203,7 +1215,7 @@ function sleep(n) {
                     </tr>
                     <tr>
                         <td class="td1">邮编：</td>
-                        <td class="td2"><input name="postCode" id="postCode" value="" onKeyPress="onlyNumberInput()" />
+                        <td class="td2"><input name="postcode" id="postcode" value="" onKeyPress="onlyNumberInput()" />
                         </td>
                         <td class="td3"></td>
                     </tr>

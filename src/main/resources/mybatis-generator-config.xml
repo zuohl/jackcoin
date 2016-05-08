@@ -42,6 +42,8 @@
         <table tableName="match_user" domainObjectName="MatchUser">
             <!-- <columnOverride column="operate_id" property="operateInfo" javaType="com.cunhou.service.web.investment.entry.OperateInfo" typeHandler="com.cunhou.service.web.investment.mapper.handler.OperateInfoTypeHandler" /> -->
         </table>
+		<table tableName="match_news" domainObjectName="MatchNews"></table>
+		<table tableName="match_review" domainObjectName="MatchReview"></table>
 
     </context>
 </generatorConfiguration>

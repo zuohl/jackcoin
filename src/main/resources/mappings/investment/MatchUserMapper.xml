@@ -122,14 +122,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cunhou.service.web.investment.entry.MatchUser">
-    insert into match_user (userid, username, certtype, 
+    insert into match_user (username, certtype, 
       certnum, bankname, banknumber, 
       accountOrg, investorType, sex, 
       emerContact, emerContactPhone, address, 
       province, city, phone, 
       email, fax, postcode, 
       photo, createtime)
-    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{certtype,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{certtype,jdbcType=VARCHAR}, 
       #{certnum,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{banknumber,jdbcType=VARCHAR}, 
       #{accountorg,jdbcType=VARCHAR}, #{investortype,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{emercontact,jdbcType=VARCHAR}, #{emercontactphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
